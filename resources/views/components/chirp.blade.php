@@ -30,7 +30,11 @@
             </x-dropdown>
             @endif
         </div>
+        @isset($chirp->image)
+            <img src='{{ Storage::url($chirp->image) }}' alt="Chirp">
+        @endisset
         <p class="mt-4 text-lg text-gray-900">{{ $chirp->message }}</p>
+        <p class="mt-4 text-lg text-gray-900">{{ $chirp->image }}</p>
         {{$slot}}
     </div>
 </div>
