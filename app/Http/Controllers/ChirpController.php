@@ -33,11 +33,13 @@ class ChirpController extends Controller
     {
         $validated = $request->validate([
             'message' => 'required|string|max:255',
-            'image' => 'required|image',
+            'image' => 'nullable|image',
         ]);
 
-        $path = $request->file('image')->store('public');
-        $validated['image'] = $path;
+        if (isset($validated['image'])) {
+            $path = $request->file('image')->store('public');
+            $validated['image'] = $path;
+        }
         $request->user()->chirps()->create($validated);
 
         return redirect(route('chirps.index'));
